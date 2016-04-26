@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by Diarmuid Ryan.
  */
@@ -22,13 +24,13 @@ public class SinTest {
     public static void main (String[] args) {
         Example[] randomVectors = generateExamples();
         MLP mlp = new MLP(4, 10, 1);
-        mlp.learn(200000, randomVectors, 0.01, MyMatrix.BIPOLAR_SQUASH);
+        mlp.learn(200000, Arrays.copyOfRange(randomVectors,0,40), 0.01, MyMatrix.BIPOLAR_SQUASH);
 
-        for (int i = 0; i < randomVectors.length; i++) {
-            MyMatrix thisOutput = mlp.forward(randomVectors[i].input, MyMatrix.BIPOLAR_SQUASH);
-            System.out.print("Result from example " + i + ": " + thisOutput.get(0));
-            System.out.println(", Should be: " + randomVectors[i].output.get(0));
-            System.out.println("==========================================");
+        Example[] testSet = Arrays.copyOfRange(randomVectors,40,randomVectors.length);
+        double error = 0;
+        for (Example example : testSet) {
+            error += mlp.forward(example.input, MyMatrix.BIPOLAR_SQUASH).minus(example.output).abs().get(0);
         }
+        System.out.println("Error on test set: " + error);
     }
 }

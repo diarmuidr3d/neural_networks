@@ -43,9 +43,7 @@ class MyMatrix extends SimpleBase<MyMatrix> {
             case LOGISTIC_SQAUSH:
                 return 1/(1 + Math.exp(-value));
             case BIPOLAR_SQUASH:
-//                return (1 - Math.exp(-2 * value))/(1 + Math.exp(-2 * value));
                 return Math.tanh(value);
-//                return (2 / (1 + Math.exp(-value))) - 1;
         }
         return 0;
     }
@@ -64,8 +62,6 @@ class MyMatrix extends SimpleBase<MyMatrix> {
                 return value * (1 - value);
             case BIPOLAR_SQUASH:
                 return 1/Math.pow(Math.cosh(value),2);
-//                double squashValue = getSquashValue(squashFunction, value);
-//                return (1 / 2) * (1 + value) * (1 - value);
         }
         return 0;
     }

@@ -74,7 +74,7 @@ public class MLP {
                     updateWeights(learningRate);
 //                }
             }
-            System.out.println("Errror at epoch " + e + " is " + error);
+//            System.out.println("Errror at epoch " + e + " is " + error);
         }
         return error;
     }
@@ -90,8 +90,6 @@ public class MLP {
     public void updateWeights(double learningRate) {
         lowerLayerWeights = lowerLayerWeights.plus(learningRate, lowerLayerWeightChanges);
         upperLayerWeights = upperLayerWeights.plus(learningRate, upperLayerWeightChanges);
-//        hiddenNeuronValues.zero();
-//        outputs.zero();
         lowerLayerWeightChanges.zero();
         upperLayerWeightChanges.zero();
     }
