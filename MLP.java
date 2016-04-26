@@ -23,9 +23,9 @@ public class MLP {
      * Forward pass. Input vector I is processed to produce an output, which is stored in outputs.
      * @param input the input vector which will be processed to produce an output
      */
-    public MyMatrix forward(MyMatrix input) {
-        hiddenNeuronValues = input.mult(lowerLayerWeights).sigmuoidSquash();
-        outputs = hiddenNeuronValues.mult(upperLayerWeights).sigmuoidSquash();
+    public MyMatrix forward(MyMatrix input, int squashFunction) {
+        hiddenNeuronValues = input.mult(lowerLayerWeights).squash(squashFunction);
+        outputs = hiddenNeuronValues.mult(upperLayerWeights).squash(squashFunction);
         lastInput = input;
         return outputs;
     }
@@ -40,7 +40,7 @@ public class MLP {
      Returns the error on the example.
      * @param target Target
      */
-    public double backward(MyMatrix target) {
+    public double backward(MyMatrix target, int squashFunction) {
         double totalError = 0;
 
         // how much did we miss the target value?
@@ -50,30 +50,31 @@ public class MLP {
 
         //in what direction is the target value?
         // were we really sure? if so, don't change too much.
-        MyMatrix upperDelta = outputError.multiplyIndividual(outputs.alternativeSquash()); // l2_delta = l2_error*nonlin(l2,deriv=True)
+        MyMatrix upperDelta = outputError.multiplyIndividual(outputs.derivativeSquash(squashFunction)); // l2_delta = l2_error*nonlin(l2,deriv=True)
         upperLayerWeightChanges = upperLayerWeightChanges.plus(hiddenNeuronValues.transpose().mult(upperDelta)); // syn1 += l1.T.dot(l2_delta)
 
 //        how much did each l1 value contribute to the l2 error (according to the weights)?
         MyMatrix hiddenError = upperDelta.mult(upperLayerWeights.transpose()); // l1_error = l2_delta.dot(syn1.T)
 //      in what direction is the target l1?
 //      were we really sure? if so, don't change too much.
-        MyMatrix lowerDelta = hiddenError.multiplyIndividual(hiddenNeuronValues.alternativeSquash()); // l1_delta = l1_error * nonlin(l1,deriv=True)
+        MyMatrix lowerDelta = hiddenError.multiplyIndividual(hiddenNeuronValues.derivativeSquash(squashFunction)); // l1_delta = l1_error * nonlin(l1,deriv=True)
         lowerLayerWeightChanges = lowerLayerWeightChanges.plus(lastInput.transpose().mult(lowerDelta)); // syn0 += l0.T.dot(l1_delta)
 
         return totalError;
     }
 
-    public double learn(int maxEpochs, Example[] example, double learningRate) {
+    public double learn(int maxEpochs, Example[] example, double learningRate, int squashFunction) {
         double error = 0;
         for (int e=0; e<maxEpochs; e++) {
             error = 0;
             for (Example anExample : example) {
-                forward(anExample.input);
-                error += backward(anExample.output);
-                if ( maxEpochs % 100 == 0) {
+                forward(anExample.input, squashFunction);
+                error += backward(anExample.output, squashFunction);
+//                if ( maxEpochs % 100 == 0) {
                     updateWeights(learningRate);
-                }
+//                }
             }
+            System.out.println("Errror at epoch " + e + " is " + error);
         }
         return error;
     }

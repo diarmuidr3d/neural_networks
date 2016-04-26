@@ -26,11 +26,11 @@ public class XorTest {
         examples[3] = new Example(sample3In, sample3Out);
 
         MLP mlp = new MLP(2, 3, 1);
-        System.out.println("Error for 0.7: " + mlp.learn(100000, examples, 0.7));
+        System.out.println("Error for 0.7: " + mlp.learn(60000, examples, 0.7, MyMatrix.LOGISTIC_SQAUSH));
 
-        System.out.println("Result from example 0: " + mlp.forward(examples[0].input));
-        System.out.println("Result from example 1: " + mlp.forward(examples[1].input));
-        System.out.println("Result from example 2: " + mlp.forward(examples[2].input));
-        System.out.println("Result from example 3: " + mlp.forward(examples[3].input));
+        System.out.println("Result from example 0: " + mlp.forward(examples[0].input, MyMatrix.LOGISTIC_SQAUSH));
+        System.out.println("Result from example 1: " + mlp.forward(examples[1].input, MyMatrix.LOGISTIC_SQAUSH));
+        System.out.println("Result from example 2: " + mlp.forward(examples[2].input, MyMatrix.LOGISTIC_SQAUSH));
+        System.out.println("Result from example 3: " + mlp.forward(examples[3].input, MyMatrix.LOGISTIC_SQAUSH));
     }
 }
