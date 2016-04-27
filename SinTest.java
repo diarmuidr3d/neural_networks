@@ -23,8 +23,9 @@ public class SinTest {
 
     public static void main (String[] args) {
         Example[] randomVectors = generateExamples();
-        MLP mlp = new MLP(4, 10, 1);
-        mlp.learn(200000, Arrays.copyOfRange(randomVectors,0,40), 0.01, MyMatrix.BIPOLAR_SQUASH);
+        MLP mlp = new MLP(4, 4, 1);
+        System.out.println("Sin Test: Starting Learning");
+        mlp.learn(100000, Arrays.copyOfRange(randomVectors,0,40), 0.01, MyMatrix.BIPOLAR_SQUASH);
 
         Example[] testSet = Arrays.copyOfRange(randomVectors,40,randomVectors.length);
         double error = 0;

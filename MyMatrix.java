@@ -73,4 +73,16 @@ class MyMatrix extends SimpleBase<MyMatrix> {
         }
         return retVal;
     }
+
+    int getIndexOfMax() {
+        double currentMax = 0;
+        int maxIndex = -1;
+        for(int index = 0; index < getNumElements(); index++) {
+            if (get(index) > currentMax) {
+                currentMax = get(index);
+                maxIndex = index;
+            }
+        }
+        return maxIndex;
+    }
 }

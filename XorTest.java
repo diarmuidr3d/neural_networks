@@ -25,12 +25,13 @@ public class XorTest {
         examples[2] = new Example(sample2In, sample2Out);
         examples[3] = new Example(sample3In, sample3Out);
 
+        System.out.println("Sin Test: Starting Learning");
         MLP mlp = new MLP(2, 3, 1);
         System.out.println("Error for 0.7: " + mlp.learn(60000, examples, 0.7, MyMatrix.LOGISTIC_SQAUSH));
 
-        System.out.println("Result from example 0: " + mlp.forward(examples[0].input, MyMatrix.LOGISTIC_SQAUSH));
-        System.out.println("Result from example 1: " + mlp.forward(examples[1].input, MyMatrix.LOGISTIC_SQAUSH));
-        System.out.println("Result from example 2: " + mlp.forward(examples[2].input, MyMatrix.LOGISTIC_SQAUSH));
-        System.out.println("Result from example 3: " + mlp.forward(examples[3].input, MyMatrix.LOGISTIC_SQAUSH));
+        System.out.println("Result from example 0: " + mlp.forward(examples[0].input, MyMatrix.LOGISTIC_SQAUSH).get(0) + " should be " + examples[0].output.get(0));
+        System.out.println("Result from example 1: " + mlp.forward(examples[1].input, MyMatrix.LOGISTIC_SQAUSH).get(0) + " should be " + examples[1].output.get(0));
+        System.out.println("Result from example 2: " + mlp.forward(examples[2].input, MyMatrix.LOGISTIC_SQAUSH).get(0) + " should be " + examples[2].output.get(0));
+        System.out.println("Result from example 3: " + mlp.forward(examples[3].input, MyMatrix.LOGISTIC_SQAUSH).get(0) + " should be " + examples[3].output.get(0));
     }
 }

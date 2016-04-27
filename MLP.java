@@ -74,8 +74,8 @@ public class MLP {
                     updateWeights(learningRate);
 //                }
             }
-//            System.out.println("Errror at epoch " + e + " is " + error);
         }
+        System.out.println("Learning error after " + maxEpochs + " epochs is " + error);
         return error;
     }
 
