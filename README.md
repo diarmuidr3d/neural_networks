@@ -1,7 +1,7 @@
-# neural_networks
+# Multilayer Perceptron
 Programming of Neural Networks for Connectionist Computing
 
-For each test, the error rate for each epoch is stored in a txt file in the folder “/error_rates”. To be run, the tests require the libraries in “/lib”. These libraries simply provide a basic Matrix which is extended in MyMatrix.java and a CSV Reader which is used for reading in the character set. The MLP is contained in MLP.java. This class is initialised with the number of inputs, hidden units and outputs. The learn method is then called with a number of epochs, a set of examples to learn on, a learning rate and an id for the squashing function to be used (from MyMatrix.java). Following learning, outputs can be tested by calling the forward method for a particular Example input. For example here is some code used in the XOR Test:
+For each test, example error rates for each epoch are stored in a txt file in the folder “/error_rates”. To be run, the tests require the libraries in “/lib”. These libraries simply provide a basic Matrix which is extended in MyMatrix.java and a CSV Reader which is used for reading in the character set. The MLP is contained in MLP.java. This class is initialised with the number of inputs, hidden units and outputs. The learn method is then called with a number of epochs, a set of examples to learn on, a learning rate and an id for the squashing function to be used (from MyMatrix.java). Following learning, outputs can be tested by calling the forward method for a particular Example input. For example here is some code used in the XOR Test:
 ```java
 MLP mlp = new MLP(2, 3, 1);
 mlp.learn(60000, examples, 0.7, MyMatrix.LOGISTIC_SQAUSH);
