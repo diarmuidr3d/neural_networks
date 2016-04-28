@@ -1,16 +1,16 @@
 import org.ejml.simple.SimpleMatrix;
 
 /**
- * Created by Diarmuid on 13/04/2016.
+ * Created by Diarmuid Ryan.
  */
-public class Example {
-    public MyMatrix input;
-    public MyMatrix output;
-    public Example(MyMatrix input, MyMatrix output) {
+class Example {
+    MyMatrix input;
+    MyMatrix output;
+    Example(MyMatrix input, MyMatrix output) {
         this.input = input;
         this.output = output;
     }
-    public Example(double[] input, double[] output) {
+    Example(double[] input, double[] output) {
         this.input = matrixFromArray(input);
         this.output = matrixFromArray(output);
     }

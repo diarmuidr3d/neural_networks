@@ -1,6 +1,5 @@
 import com.opencsv.CSVReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +9,6 @@ import java.util.Arrays;
  * Created by Diarmuid Ryan.
  */
 public class CharacterRecogniser {
-
-    private static double sizeOfTestSet = 0.2;
 
     private static MyMatrix charToOutputMatrix(char character) {
         MyMatrix retVal = new MyMatrix(1, 26);
@@ -37,8 +34,7 @@ public class CharacterRecogniser {
     public static void main(String[] args) {
         ArrayList<Example> examplesBuffer = new ArrayList<>();
         try {
-            CSVReader reader = null;
-            reader = new CSVReader(new FileReader("res/character_set.csv"));
+            CSVReader reader = new CSVReader(new FileReader("res/character_set.csv"));
             String [] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 // nextLine[] is an array of values from the line
@@ -49,6 +45,7 @@ public class CharacterRecogniser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        double sizeOfTestSet = 0.2;
         int testSetSize = (int) (sizeOfTestSet * examplesBuffer.size());
         System.out.println("Test set size: " + testSetSize);
         Example[] testSet = new Example[testSetSize];
@@ -57,7 +54,7 @@ public class CharacterRecogniser {
         trainingSet = examplesBuffer.subList(testSetSize, examplesBuffer.size()).toArray(trainingSet);
         MLP mlp = new MLP(16, 10, 26);
         System.out.println("Learning");
-        mlp.learn(10000, trainingSet, 0.01, MyMatrix.LOGISTIC_SQAUSH);
+        mlp.learn(50000, trainingSet, 0.005, MyMatrix.LOGISTIC_SQAUSH);
         double error = 0;
         System.out.println("Testing");
         System.out.println("Size of test set: " + testSet.length);
@@ -66,11 +63,10 @@ public class CharacterRecogniser {
             int outputLetter = mlp.forward(example.input, MyMatrix.LOGISTIC_SQAUSH).getIndexOfMax();
             int shouldBeLetter = example.output.getIndexOfMax();
             if (outputLetter != shouldBeLetter) {
-                System.out.println("output: " + outputLetter + ", should be: " + shouldBeLetter);
                 error += 1;
             }
         }
         System.out.println("Number of incorrect characters: " + error);
-        System.out.println("Percentage error: " + error /testSetSize);
+        System.out.println("Percentage error (between 0 and 1): " + error /testSetSize);
     }
 }

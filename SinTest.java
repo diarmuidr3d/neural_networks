@@ -5,7 +5,7 @@ import java.util.Arrays;
  */
 public class SinTest {
 
-    public static Example[] generateExamples() {
+    private static Example[] generateExamples() {
         Example[] retVal = new Example[50];
         for(int i = 0; i < retVal.length; i++) {
             double[][] randomVector = {{random(), random(), random(), random()}};

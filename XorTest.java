@@ -1,4 +1,3 @@
-import org.ejml.simple.SimpleMatrix;
 
 /**
  * Created by Diarmuid on 15/04/2016.
@@ -10,14 +9,19 @@ import org.ejml.simple.SimpleMatrix;
  ((1, 1), 0)
  */
 public class XorTest {
-    static double[] sample0In = {0, 0};
-    static double[] sample0Out = {0};
-    static double[] sample1In = {0, 1};
-    static double[] sample1Out = {1};
-    static double[] sample2In = {1, 0};
-    static double[] sample2Out = {1};
-    static double[] sample3In = {1, 1};
-    static double[] sample3Out = {0};
+
+    private static double[] sample0In = {0, 0};
+    private static double[] sample0Out = {0};
+
+    private static double[] sample1In = {0, 1};
+    private static double[] sample1Out = {1};
+
+    private static double[] sample2In = {1, 0};
+    private static double[] sample2Out = {1};
+
+    private static double[] sample3In = {1, 1};
+    private static double[] sample3Out = {0};
+
     public static void main (String[] args) {
         Example[] examples = new Example[4];
         examples[0] = new Example(sample0In, sample0Out);

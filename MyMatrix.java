@@ -6,14 +6,14 @@ import org.ejml.simple.SimpleBase;
  */
 class MyMatrix extends SimpleBase<MyMatrix> {
 
-    public static final int LOGISTIC_SQAUSH = 1;
-    public static final int BIPOLAR_SQUASH = 2;
+    static final int LOGISTIC_SQAUSH = 1;
+    static final int BIPOLAR_SQUASH = 2;
 
     MyMatrix(int numRows, int numCols) {
         super(numRows, numCols);
     }
 
-    public MyMatrix(double data[][]) {
+    MyMatrix(double data[][]) {
         mat = new DenseMatrix64F(data);
     }
 
